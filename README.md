@@ -1,5 +1,6 @@
 # Simply Logical - slides #
 ## Slides ##
+| **Chapter**                  | **PowerPoint**        | **PDF**               |
 |------------------------------|-----------------------|-----------------------|
 | **Simply Logical Chapter 1** | [PPT](SLchapter1.ppt) | [PDF](SLchapter1.pdf) |
 | **Simply Logical Chapter 2** | [PPT](SLchapter2.ppt) | [PDF](SLchapter2.pdf) |
