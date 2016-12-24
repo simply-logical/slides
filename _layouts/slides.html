@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    {% include head.html %}
+
+    <!--Reveal.js-->
+    <link href="{{ site.baseurl }}/web/css/reveal.css" rel="stylesheet">
+    <link href="{{ site.baseurl }}/web/css/theme/solarized.css" rel="stylesheet">
+
+    {% if page.title %}
+      <meta name=Title content="{{ page.title }}">
+    {% endif %}
+    {% if page.keywords  %}
+      <meta name=Keywords content="{{ page.keywords }}">
+    {% endif %}
+    {% if page.title %}
+      <title>{{ page.title }}</title>
+    {% endif %}
+  </head>
+
+  <body>
+
+    {% include header.html %}
+
+    <div class="reveal" style="margin-top: -50px; padding-top: 50px;">
+      <div style="position: absolute; bottom: 1em; width: 100%; font-size: 0.4em; text-align: center;">
+        University of Bristol | {{ site.author }}
+      </div>
+      <div class="slides">
+        {{ content }}
+      </div>
+    </div>
+
+    <script>
+      $(function() { $(".swish").LPN({swish:"http://swish.swi-prolog.org/"}); });
+    </script>
+
+    <script src="{{ site.baseurl }}/web/lib/js/head.min.js"></script>
+    <script src="{{ site.baseurl }}/web/js/reveal.js"></script>
+    <script>
+      Reveal.initialize({
+        history: true,
+        math: {
+          // mathjax: 'http://cdn.mathjax.org/mathjax/latest/MathJax.js',
+          config: 'TeX-AMS_HTML-full'
+        },
+
+        dependencies: [
+        { src: '{{ site.baseurl }}/web/plugin/math/math.js', async: true },
+
+        // Interpret Markdown in <section> elements
+        { src: '{{ site.baseurl }}/web/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+        { src: '{{ site.baseurl }}/web/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } }
+        ]
+      });
+    </script>
+  </body>
+
+</html>
