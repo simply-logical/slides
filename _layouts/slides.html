@@ -6,16 +6,19 @@
 
     <!--Reveal.js-->
     <link href="{{ site.baseurl }}/web/css/reveal.css" rel="stylesheet">
-    <link href="{{ site.baseurl }}/web/css/theme/solarized.css" rel="stylesheet">
+    <link href="{{ site.baseurl }}/web/css/theme/night.css" rel="stylesheet">
 
-    {% if page.title %}
-      <meta name=Title content="{{ page.title }}">
+    {% if site.title %}
+      <meta name=Title content="{{ site.title }}">
+    {% endif %}
+    {% if site.author %}
+      <meta name=author content="{{ site.author }}">
     {% endif %}
     {% if page.keywords  %}
       <meta name=Keywords content="{{ page.keywords }}">
     {% endif %}
-    {% if page.title %}
-      <title>{{ page.title }}</title>
+    {% if site.title %}
+      <title>{{ site.title }}</title>
     {% endif %}
   </head>
 
@@ -23,11 +26,22 @@
 
     {% include header.html %}
 
+
+
     <div class="reveal" style="margin-top: -50px; padding-top: 50px;">
       <div style="position: absolute; bottom: 1em; width: 100%; font-size: 0.4em; text-align: center;">
-        University of Bristol | {{ site.author }}
+        {{ site.author }} | {{ site.website }}
       </div>
       <div class="slides">
+
+    {% if site.title %}
+		<section>
+		<h3>{{ site.title }}</h3>
+    {% if site.subtitle %}<h4>{{ site.subtitle }}</h4>{% endif %}
+		<h2>Peter Flach</h2>
+		</section>
+    {% endif %}
+
         {{ content }}
       </div>
     </div>

@@ -1,15 +1,11 @@
 # Site settings
-title: Simply Logical Slides
-subtitle: Intelligent Reasoning by Example
-email: Peter.Flach@bristol.ac.uk
-website: http://www.cs.bris.ac.uk/~flach/SimplyLogical.html
+title: Simply Logical topics
+subtitle: starred topics give an example application
+email: Peter.Flach@gmail.com
+website: http://www.cs.bris.ac.uk/~flach
 description: > # this means to ignore newlines until "baseurl:"
-  This book discusses methods to implement intelligent reasoning by means of Prolog programs. 
-  The book is written from the shared viewpoints of Computational Logic, which aims at automating 
-  various kinds of reasoning, and Artificial Intelligence, which seeks to 
-  implement aspects of intelligent behaviour on a computer. 
-baseurl: "" # the subpath of your site, e.g. /blog/
-url: "http://slides.simply-logical.space" # the base hostname & protocol for your site
+baseurl: "/simply-logical_slides" # the subpath of your site, e.g. /blog/
+url: "http://coms30106.github.io" # the base hostname & protocol for your site
 repo: "https://github.com/coms30106"
 author: Peter Flach
 # twitter_username: jekyllrb
