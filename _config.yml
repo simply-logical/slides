@@ -3,10 +3,11 @@ title: Simply Logical topics
 subtitle: starred topics give an example application
 email: Peter.Flach@gmail.com
 website: http://www.cs.bris.ac.uk/~flach
-description: > # this means to ignore newlines until "baseurl:"
-baseurl: "/simply-logical_slides" # the subpath of your site, e.g. /blog/
-url: "http://coms30106.github.io" # the base hostname & protocol for your site
-repo: "https://github.com/coms30106"
+swish: "http://swish.simply-logical.space/"
+#description: > # this means to ignore newlines until "baseurl:"
+baseurl: "" # the subpath of your site, e.g. /blog/
+url: "http://slides.simply-logical.space" # the base hostname & protocol for your site
+repo: "https://github.com/COMS30106/simply-logical_slides"
 author: Peter Flach
 # twitter_username: jekyllrb
 # github_username:  jekyll
