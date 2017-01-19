@@ -17,7 +17,9 @@
     {% if page.keywords  %}
       <meta name=Keywords content="{{ page.keywords }}">
     {% endif %}
-    {% if site.title %}
+    {% if page.subtitle %}
+      <title>{{ page.subtitle }}</title>
+    {% else %}
       <title>{{ site.title }}</title>
     {% endif %}
   </head>
@@ -34,11 +36,16 @@
       </div>
       <div class="slides">
 
-    {% if site.title %}
+    {% if page.title %}
+		<section>
+		<h3>{{ page.title }}</h3>
+    	<h4>{{ page.subtitle }}</h4>
+		</section>
+    {% else %}
 		<section>
 		<h3>{{ site.title }}</h3>
     {% if site.subtitle %}<h4>{{ site.subtitle }}</h4>{% endif %}
-		<h2>Peter Flach</h2>
+		<h2>{{ site.author }}</h2>
 		</section>
     {% endif %}
 
@@ -65,10 +72,18 @@
 
         // Interpret Markdown in <section> elements
         { src: '{{ site.baseurl }}/web/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
-        { src: '{{ site.baseurl }}/web/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } }
+        { src: '{{ site.baseurl }}/web/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+          // Zoom in and out with Alt+click
+        { src: '{{ site.baseurl }}/web/plugin/zoom-js/zoom.js', async: true },
+        // Speaker notes
+        { src: '{{ site.baseurl }}/web/plugin/notes/notes.js', async: true }
+
         ]
       });
     </script>
+
+    {% include footer.html %}
+
   </body>
 
 </html>

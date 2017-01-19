@@ -1,7 +1,7 @@
 # Site settings
-title: Simply Logical topics
-subtitle: starred topics give an example application
-email: Peter.Flach@gmail.com
+title: Simply Logical
+subtitle: Intelligent Reasoning by Example
+email: Peter.Flach@bristol.ac.uk
 website: http://www.cs.bris.ac.uk/~flach
 swish: "http://swish.simply-logical.space/"
 #description: > # this means to ignore newlines until "baseurl:"

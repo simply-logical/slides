@@ -1,4 +1,4 @@
-## Getting started
+## [Getting started](intro.html)
 - facts, rules and queries
 - recursion
 - proof trees
@@ -6,7 +6,7 @@
 
 ----
 
-## Logic
+## [Logic](logic.html)
 - propositional, relational, full
 - definite clause logic
 - resolution
@@ -15,14 +15,14 @@
 
 ----
 
-## The Prolog programming model
+## [The Prolog programming model](prolog1.html)
 - SLD-resolution, SLD-tree
 - cut and higher-level siblings
 - negation as failure
 
 ----
 
-## Prolog programming techniques
+## [Prolog programming techniques](prolog2.html)
 - arithmetic
 - accumulators
 - second-order predicates
@@ -31,28 +31,28 @@
 
 ----
 
-## Knowledge representation
+## [Knowledge representation](kr.html)
 - trees as terms
 - graphs from a predicate
 - inheritance
 
 ----
 
-## Blind search
+## [Blind search](search1.html)
 - depth-first, breadth-first, iterative deepening
 - agenda-based meta-interpreter*
 - forward chaining, generating models*
 
 ----
 
-## Informed search
+## [Informed search](search2.html)
 - best-first search, beam search
 - admissibility, monotonicity
 - A* search
 
 ----
 
-## Reasoning with natural language
+## [Reasoning with natural language](language.html)
 - grammars, parsing as SLD-resolution
 - DCG
 - parsing vs generating
@@ -61,43 +61,14 @@
 
 ----
 
-## Commonsense reasoning
+## [Commonsense reasoning](default.html)
 - default reasoning*
 - CWA, predicate completion*
 - abduction*
 
 ----
 
-## Inductive reasoning
+## [Inductive reasoning](induction.html)
 - theta-subsumption, anti-unification
 - bottom-up induction*
 - top-down induction*
-
-----
-
-## Trying out stuff
-
-Some text with [a link][1] and
-another [link][2].
-
-[1]: http://example.com/ "Title"
-[2]: http://example.org/ "Title"
-
-
-> Quoted text.
-> > Quoted quote.
-
-> * Quoted 
-> * List
-
-
-```css
-#button {
-	border: none;
-}
-```
-~~~~
-another
-  code
-    block
-~~~~
