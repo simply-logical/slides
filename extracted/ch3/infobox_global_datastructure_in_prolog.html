@@ -1,0 +1,18 @@
+<div class="extract infobox" id="global_datastructure_in_prolog">
+<table align="center" cellpadding="0" cellspacing="0" hspace="0" vspace="0">
+<tbody>
+<tr>
+<td align="left" class="AutoStyle04" valign="top">
+<div class="AutoStyle31">
+<p class="inter-title AutoStyle32">
+           Global datastructures in Prolog
+          </p>
+<p class="intermezzo AutoStyle33">
+           Since Prolog variables do not have a scope outside the clause   in which they occur (section 2.2), pure Prolog does not provide any support   for global datastructures. However, Prolog provides access to its internal   database where it stores the program clauses, by means of the built-in   predicates <tt>assert</tt> and <tt>retract</tt>. The query <tt>?-assert(Clause)</tt> results in the addition of <tt>Clause</tt> (which must be instantiated to a   valid Prolog clause) to your program; the query <tt>?‑retract(Clause)</tt> removes the first clause which   unifies with <tt>Clause</tt> from your   program. These predicates are fairly low-level, and should be used with care.
+          </p>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>

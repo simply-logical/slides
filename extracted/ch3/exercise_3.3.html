@@ -1,0 +1,33 @@
+<div class="extract exercise" id="3.3">
+<div class="AutoStyle06">
+<p class="exercise AutoStyle07">
+<i>Exercise 3.3.</i> Draw the SLD-tree for the query
+   </p>
+<div class="extract swish" id="3.2.ex3.3">
+<pre class="swish query" id="query3.2.ex3.3">?-likes(A,B).</pre>
+</div>
+<p class="exercise AutoStyle07">
+    given the following program:
+   </p>
+<div class="extract swish" id="3.2.ex3.3_2">
+<pre class="source swish AutoStyle03" data-variant-id="group-1" id="swish.3.2.ex3.3" query-id="query3.2.ex3.3">
+likes(peter,Y):-friendly(Y).
+likes(T,S):-student_of(S,T).
+student_of(maria,peter).
+student_of(paul,peter).
+friendly(maria).
+</pre>
+</div>
+<p class="exercise AutoStyle07">
+    Add a cut in order to prune away one of the answers { <tt>A</tt>
+<span class="AutoStyle09">
+     →
+    </span>
+<tt>peter</tt>, <tt>B</tt>
+<span class="AutoStyle09">
+     →
+    </span>
+<tt>maria</tt> }, and indicate the result in the SLD-tree. Can this be done without pruning away the third answer?
+   </p>
+</div>
+</div>

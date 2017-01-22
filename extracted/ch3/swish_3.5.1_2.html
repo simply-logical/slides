@@ -1,0 +1,483 @@
+<div class="extract swish" id="3.5.1_2">
+<pre class="swish query" id="query3.5.1">
+?-add(s(s(0)),s(s(s(0))),Z).
+</pre>
+<p class="p-el">
+     Z = s(s(s(s(s(0)))))
+    </p>
+<p class="tekst">
+     We can also find an <i>X</i> such that the sum of <i>X</i> and <i>Y</i> is <i>Z</i> (i.e., subtract <i>Y</i> from <i>Z</i>):
+    </p>
+<div class="extract swish" id="3.5.1_3">
+<pre class="swish query" id="query3.5.1">
+?-add(X,s(s(s(0))),s(s(s(s(s(0)))))).
+</pre>
+</div>
+<p class="p-el">
+     X = s(s(0))
+    </p>
+<p class="tekst">
+     We can even find all <i>X</i> and <i>Y</i> which add up to a given sum. Thus, this program is fully declarative. Similarly, multiplication is repeated addition:
+    </p>
+<div class="extract swish" id="3.5.2">
+<pre class="source swish inherit AutoStyle03" data-variant-id="group-2" id="swish.3.5.2" inherit-id="swish.3.5.1" query-text="?-mul(0,X,0). ?-mul(s(s(0)),s(s(s(0))),Z).">
+mul(0,_X,0).
+mul(s(X),Y,Z):-mul(X,Y,Z1),add(Y,Z1,Z).
+</pre>
+</div>
+<p class="sektie">
+     There are two problems with this approach to representing and manipulating natural numbers. First, naming natural numbers by means of the constant symbol <tt>0</tt> and the functor <tt>s</tt> is very clumsy, especially for large numbers. Of course, it would be possible to write a translator from decimal notation to successor notation, and back. However, the second problem is more fundamental: multiplication as repeated addition is extremely inefficient compared to the algorithm for multiplicating numbers in decimal notation. Therefore, Prolog has built-in arithmetic facilities, which we will discuss now.
+    </p>
+<p class="sektie">
+     Consider the arithmetic expression <tt>5+7-3</tt>. Prolog will view this expression as the term <tt>+(5,-(7,3))</tt>, with the functors <tt>+</tt> and <tt>-</tt> written as infix operators. We want to <i>evaluate</i> this expression, i.e. we want a single numerical value which represents somehow the same number as the expression. A program for doing this would look something like
+    </p>
+<p class="pi-eerst">
+     is(V,E1+E2):-<br>
+     is(V1,E1),is(V2,E2),<br>
+     fast_add(V1,V2,V).
+</br></br></p>
+<p class="pi">
+     is(V,E1-E2):-<br>
+     is(V1,E1,),is(V2,E2),<br>
+     fast_sub(V1,V2,V).
+</br></br></p>
+<p class="pi-laatst">
+     is(E,E):-<br>
+     number(E).
+</br></p>
+<p class="tekst">
+     Here, <tt>fast_add</tt> and <tt>fast_sub</tt> represent the fast, built-in procedures for addition and subtraction, which are not directly available to the user. These procedures are <b>not</b> reversible: its first two arguments must be instantiated. Therefore, the predicate <tt>is</tt> will include a test for groundness of its second argument (the arithmetic expression), and will quit with an error-message if this test fails.
+    </p>
+<div class="extract infobox" id="operators">
+<table align="center" cellpadding="0" cellspacing="0" hspace="0" vspace="0">
+<tbody>
+<tr>
+<td align="left" class="AutoStyle04" valign="top">
+<div class="AutoStyle31">
+<p class="inter-title AutoStyle32">
+           Operators
+          </p>
+<p class="intermezzo AutoStyle33">
+           In Prolog, functors and predicates are collectively called <i>operators</i>. An operator is declared by   the query <tt>?-op(Priority,Type,Name)</tt>,   where <tt>Priority</tt> is a number between 0   and 1200 (lower priority binds stronger), and <tt>Type</tt> is <tt>fx</tt> or <tt>fy</tt> for prefix, <tt>xfx</tt>, <tt>xfy</tt> or <tt>yfx</tt> for infix, and <tt>xf</tt> or <tt>yf</tt> for postfix. The <tt>x</tt> and <tt>y</tt> determine associativity: for instance, <tt>xfx</tt> means not associative (you cannot write <tt>X   op Y op Z</tt>, but must either write <tt>(X   op Y) op Z</tt> or <tt>X op (Y op Z)</tt>), <tt>xfy</tt> means right-associative (<tt>X op Y op Z</tt> means <tt>op(X,op(Y,Z))</tt>), and <tt>yfx</tt> means left-associative (<tt>X op Y op Z</tt> means <tt>op(op(X,Y),Z)</tt>). Every special   symbol of Prolog, such as ‘ <tt>:-</tt> ’ and ‘ <tt>,</tt> ’ (conjunction in the body of a clause), is a predefined   operator. The interpretation of operators can be visualised by means of the   predicate <tt>display</tt>, which writes a   term without operators. For instance,<br>
+           the query <tt>?-display((p:-q,r,s))</tt> writes <tt>:-(p,','(q,','(r,s)))</tt>.<br>
+            The extra parentheses are needed because <tt>:-</tt> binds very weakly.
+</br></br></p>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p class="sektie">
+     The <tt>is</tt> predicate is a built-in feature of Prolog, and is declared as an infix operator. Its behaviour is illustrated by the following queries:
+    </p>
+<p class="query">
+     ?-X is 5+7-3<br>
+     X = 9
+</br></p>
+<p class="query">
+     ?-9 is 5+7-3<br>
+     Yes
+</br></p>
+<p class="query">
+     ?-9 is X+7-3<br>
+     Error in arithmetic expression
+</br></p>
+<p class="query AutoStyle45">
+     ?-X is 5*3+7/2<br>
+     X = 18.5
+</br></p>
+<div class="extract swish" id="3.5.4">
+<pre class="source swish AutoStyle03" data-variant-id="group-2" id="swish.3.5.4" query-text="?-X is 5+7-3. ?-9 is 5+7-3. ?-9 is X+7-3. ?-X is 5*3+7/2.">
+% Try these queries here.
+</pre>
+</div>
+<p class="tekst">
+     The last example shows, that arithmetic expressions obey the usual precedence rules (which can be overruled using parentheses). Also, note that the <tt>is</tt> predicate can handle real numbers.
+    </p>
+<p class="sektie">
+     Prolog also provides a built-in predicate <tt>=</tt>, but this predicate behaves quite differently from <tt>is</tt>, since it performs <i>unification</i> rather than arithmetic evaluation (see also section 2.3). The following queries illustrate the operation of <tt>=</tt>:
+    </p>
+<p class="query">
+     ?-X = 5+7-3<br>
+     X = 5+7-3
+</br></p>
+<p class="query">
+     ?-9 = 5+7-3<br>
+     No
+</br></p>
+<p class="query">
+     ?-9 = X+7-3<br>
+     No
+</br></p>
+<p class="query">
+     ?-X = Y+7-3<br>
+     X = _947+7-3<br>
+     Y = _947
+</br></br></p>
+<p class="query AutoStyle45">
+     ?-X = f(X)<br>
+     X = f(f(f(f(f(f(f(f(f(f(f(f(f(f(f(f(f(f(f(f(f(f(f(f(f(f(f(f(f(f(f<br>
+     (f(f(f(f(f(f(f(f(f(f(f(f(f(f(f(f(f(f(f(f(f(f(f(f(f(f(f(f(f(f(f(f(<br>
+     Error: term being written is too deep
+</br></br></br></p>
+<div class="extract swish" id="3.5.5">
+<pre class="source swish AutoStyle03" data-variant-id="group-2" id="swish.3.5.5" query-text="?-X = 5+7-3. ?-9 = 5+7-3. ?-9 = X+7-3. ?-X = Y+7-3. ?-X = f(X).">
+% Try these queries here. Is the answer to the last query really as described here?
+</pre>
+</div>
+<p class="tekst">
+     The first query just unifies <tt>X</tt> with the term <tt>5+7-3</tt> (i.e. <tt>+(5,-(7,3))</tt>), which of course succeeds. In the second and third query, we try to unify a constant with a complex term, which fails. The fourth query succeeds, leaving <tt>Y</tt> unbound (<tt>_947</tt> is an internal variable name, generated by Prolog).
+    </p>
+<p class="sektie">
+     The fifth query illustrates that Prolog indeed omits the occur check (section 2.3) in unification: the query should have failed, but instead it succeeds, resulting in the circular binding { <tt>X</tt>
+<span class="AutoStyle09">
+      →
+     </span>
+<tt>f(X)</tt> }. The problem only becomes apparent when Prolog tries to write the resulting term, which is infinite. Just to stress that Prolog quite happily constructs circular bindings, take a look at the following strange program:
+    </p>
+<p class="p-el">
+     strange:-X=f(X).
+    </p>
+<p class="tekst">
+     The query <tt>?-strange</tt> succeeds, and since there is no answer substitution, it is not apparent that there is a circular binding involved.
+    </p>
+<div class="extract exercise" id="3.9">
+<div class="AutoStyle06">
+<p class="exercise AutoStyle07">
+<i>Exercise 3.9.</i> Write a predicate <tt>zero(A,B,C,X)</tt> which, given the coefficients <i>a</i>, <i>b</i> and <i>c</i>, calculates both values of <i>x</i> for which <i>ax</i>
+<span class="AutoStyle46">
+       2
+      </span>
+      + <i>bx</i> + <i>c</i> =0.
+     </p>
+</div>
+</div>
+<p class="sektie">
+     Finally, we mention that Prolog provides a number of other useful arithmetic predicates, including the inequality tests <tt>&lt;</tt> and <tt>&gt;</tt>, and their reflexive counterparts <tt>=&lt;</tt> and <tt>&gt;=</tt>. For these tests, both arguments should be instantiated to numbers.
+    </p>
+<h3 id="accumulators">
+     3.6   Accumulators
+    </h3>
+<p class="sektie1">
+     The condition that the righthand-side of <tt>is</tt> should not contain variables sometimes determines the ordering of literals in the body of the clause. For instance, in the program below, which computes the length of a list, the <tt>is</tt> literal should be placed after the recursive <tt>length</tt> call, which instantiates <tt>M</tt>. This means that the resolvent first collects as many <tt>is</tt> literals as there are elements in the list, before doing the actual calculation. Each of these literals contains some ‘local’ variables that require some space in memory. The total memory requirements are thus proportional to the depth of the recursion.
+    </p>
+<div class="extract swish" id="3.6.0">
+<pre class="source swish AutoStyle03" data-variant-id="group-2" id="swish.3.6.0" query-text="?-naive_length([a,b,c],N).">
+naive_length([],0).
+naive_length([_H|T],N):-naive_length(T,M),N is M+1.
+</pre>
+</div>
+<div class="extract exercise" id="3.10">
+<div class="AutoStyle06">
+<p class="exercise AutoStyle07">
+<i>Exercise 3.10.</i> Draw the proof tree for the query <tt>?-naive_length([a,b,c],N)</tt>.
+     </p>
+</div>
+</div>
+<p class="sektie">
+     Programs with tail recursion need less memory because they do all the work on one recursive level before proceeding to the next. There is a common trick to transform even the <tt>length</tt> predicate above into a tail recursive program, using an auxiliary argument called an <i>accumulator</i>.
+    </p>
+<div class="extract swish" id="3.6.1">
+<pre class="source swish AutoStyle03" data-variant-id="group-2" id="swish.3.6.1" query-text="?-length_acc([a,b,c],N). ?-length_acc([a,b,c],0,N). ?-length_acc([a,b,c],3,N).">
+length_acc(L,N):-length_acc(L,0,N).
+
+length_acc([],N,N).
+length_acc([_H|T],N0,N):-N1 is N0+1,length_acc(T,N1,N).
+</pre>
+</div>
+<p class="tekst">
+<tt>length_acc(L,N0,N)</tt> is true if <tt>N</tt> is the number of elements in <tt>L</tt> plus <tt>N0</tt>. Initialising <tt>N0</tt> to <tt>0</tt> results in <tt>N</tt> returning the length of <tt>L</tt>. Note that the actual counting is done by the second argument: only when the list is empty is the third argument unified with the second argument. The main point is that, since the accumulator is given an initial value of <tt>0</tt>, it is always instantiated, such that the <tt>is</tt> literal can be placed before the recursive call.
+    </p>
+<div class="extract exercise" id="3.11">
+<div class="AutoStyle06">
+<p class="exercise AutoStyle07">
+<i>Exercise 3.11.</i> Draw the proof tree for the query <tt>?-length_acc([a,b,c],N)</tt>.
+     </p>
+</div>
+</div>
+<p class="sektie">
+     Accumulators can be used in very many programs. Suppose we want to reverse the order of elements in a list. We could do this by recursively reversing the tail of the list, and putting the head at the end of the result:
+    </p>
+<div class="extract swish" id="3.6.2">
+<pre class="source swish AutoStyle03" data-variant-id="group-2" id="swish.3.6.2" query-text="?-naive_reverse([a,b,c],R).">
+naive_reverse([],[]).
+naive_reverse([H|T],R):-naive_reverse(T,R1),append(R1,[H],R).
+
+append([],Y,Y).
+append([H|T],Y,[H|Z]):-append(T,Y,Z).
+</pre>
+</div>
+<p class="tekst">
+     This predicate is called ‘naive’ because a lot of unnecessary work is done by the <tt>append</tt> calls in the recursive clause.
+    </p>
+<div class="extract exercise" id="3.12">
+<div class="AutoStyle06">
+<p class="exercise AutoStyle07">
+<i>Exercise 3.12.</i> Draw the proof tree for the query <tt>?-naive_reverse([a,b,c],R)</tt>.
+     </p>
+</div>
+</div>
+<p class="tekst">
+     By using an accumulator, we can get rid of the <tt>append</tt> predicate, as follows:
+    </p>
+<div class="extract swish" id="3.6.3">
+<pre class="source swish AutoStyle03" data-variant-id="group-2" id="swish.3.6.3" query-text="?-reverse([a,b,c],R). ?-reverse([a,b,c],[],R). ?-reverse([b,c],[a],R). ?-reverse([c],[b,a],R).">
+reverse(X,Y):- reverse(X,[],Y).
+
+reverse([],Y,Y).
+reverse([H|T],Y0,Y):- reverse(T,[H|Y0],Y).
+</pre>
+</div>
+<p class="tekst">
+<tt>reverse(X,Y0,Y)</tt> is true if <tt>Y</tt> consists of the reversal of <tt>X</tt> followed by <tt>Y0</tt>. Initialising <tt>Y0</tt> to <tt>[]</tt> results in <tt>Y</tt> returning the reversal of <tt>X</tt>.
+    </p>
+<p class="sektie">
+     The use of an accumulator in this more efficient program for reversing a list is closely related to another programming trick for increasing the efficiency of list handling. The idea is not to represent a list by a single term, but instead by a pair of terms <tt>L1-L2</tt>, such that the list actually represented is the <b>difference</b> between <tt>L1</tt> and <tt>L2</tt>. The term <tt>L1-L2</tt> is appropriately called a <i>difference list</i>; <tt>L1</tt> is called the <i>plus list</i>, and <tt>L2</tt> is called the <i>minus list</i>. For instance, the difference list <tt>[a,b,c,d]-[d]</tt> represents the simple list <tt>[a,b,c]</tt>, as does the difference list <tt>[a,b,c,1234,5678]-[1234,5678]</tt>, and even the difference list <tt>[a,b,c|X]-X</tt>. The last difference list can be seen as summarising every possible difference list representing the same simple list, by introducing a variable for the part which is not contained in the simple list.
+    </p>
+<p class="sektie">
+     As was remarked above, <tt>reverse(X,Y0,Y)</tt> is true if <tt>Y</tt> consists of the reversal of <tt>X</tt> followed by <tt>Y0</tt>. Another way to say the same thing is that the reversal of <tt>X</tt> is the difference between <tt>Y</tt> and <tt>Y0</tt>. That is, the reversal of <tt>X</tt> is represented by the difference list <tt>Y-Y0</tt>! We can make this explicit by a small syntactic change to <tt>reverse</tt>, resulting in the following program:
+    </p>
+<div class="extract swish" id="3.6.4">
+<pre class="source swish AutoStyle03" data-variant-id="group-2" id="swish.3.6.4" query-text="?-reverse_dl([a,b,c],R). ?-reverse([a,b,c],R-[]). ?-reverse([b,c],R-[a]). ?-reverse([c],R-[b,a]).">
+reverse_dl(X,Y):- reverse(X,Y-[]).
+
+reverse([],Y-Y).
+reverse([H|T],Y-Y0):- reverse(T,Y-[H|Y0]).
+</pre>
+</div>
+<p class="tekst">
+     For instance, the third clause in this program says: if the reversal of <tt>T</tt> is represented by the difference list <tt>Y-[H|Y0]</tt>, then adding <tt>H</tt> to the head of <tt>T</tt> is the same as removing <tt>H</tt> from the minus list in the difference list.
+    </p>
+<p class="sektie">
+     If the minus list is a variable, it can be used as a pointer to the end of the represented list. It is this property which makes difference lists so useful. For instance, if we unify <tt>[a,b,c|X]-X</tt> with <tt>Y-[d,e]</tt>, we get <tt>Y=[a,b,c,d,e]</tt> — we have managed to append two lists together in a single unification step! In this example, the second term is not a difference list, nor is the result. If we want to append two difference lists
+    </p>
+<p class="p-el">
+     [a,b,c|XMinus]-XMinus
+    </p>
+<p class="tekst">
+     and
+    </p>
+<p class="p-el">
+     [d,e|YMinus]-YMinus
+    </p>
+<p class="tekst">
+     we must unify <tt>XMinus</tt> with <tt>[d,e|YMinus]</tt> (the plus list of the second difference list), such that the first difference list becomes
+    </p>
+<p class="p-el">
+     [a,b,c,d,e|YMinus]-[d,e|YMinus]
+    </p>
+<p class="tekst">
+     Combining the plus list of this difference list with <tt>YMinus</tt>, we get exactly what we want.
+    </p>
+<div class="extract figure" id="3.13">
+<table align="center" cellpadding="0" cellspacing="0" hspace="0" vspace="0">
+<tbody>
+<tr>
+<td align="left" class="AutoStyle04" valign="top">
+<div class="AutoStyle05">
+<p class="figure">
+<img src="img/part_i/image046.svg" v:shapes="_x0000_i1047" width="50%"/>
+</p>
+</div>
+<p class="caption">
+<b>Figure 3.13.</b> Appending   two difference lists: the ‘length’ of <tt>XMinus</tt> is adjusted by unification with <tt>YPlus</tt>,   the result is given by <tt>XPlus-YMinus</tt>.
+         </p>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p class="sektie">
+     In general, given two difference lists <tt>XPlus-XMinus</tt> and <tt>YPlus-YMinus</tt>, we unify <tt>XMinus</tt> with <tt>YPlus</tt>, and the result is given by <tt>XPlus-YMinus</tt> (fig. 3.13):
+    </p>
+<p class="p-el">
+     append_dl(XPlus-XMinus,YPlus-YMinus,XPlus-YMinus):-<br>
+                                                  XMinus=YPlus.
+</br></p>
+<p class="tekst">
+     or even shorter
+    </p>
+<div class="extract swish" id="3.6.5">
+<pre class="source swish AutoStyle03" data-variant-id="group-2" id="swish.3.6.5" query-text="?-append_dl([a,b,c|X]-X,[d,e|Y]-Y,Z-Z0). ?-append_dl([a,b,c|X]-X,[d,e|Y]-Y,Z-[]).">
+append_dl(XPlus-YPlus,YPlus-YMinus,XPlus-YMinus).
+</pre>
+</div>
+<p class="tekst">
+     Appending a simple list to another simple list of <i>n</i> elements requires <i>n</i> resolution steps; appending two difference lists requires no resolution at all, just one unification. Using difference lists is almost always a good idea if you have to do a lot of list processing.
+    </p>
+<div class="extract exercise" id="3.13">
+<div class="AutoStyle06">
+<p class="exercise AutoStyle07">
+<i>Exercise 3.13.</i> In the <tt>naive_reverse</tt> predicate, represent the reversed list by a difference list, use <tt>append_dl</tt> instead of <tt>append</tt>, and show that this results in the predicate <tt>reverse_dl</tt> by unfolding the definition of <tt>append_dl</tt>.
+     </p>
+</div>
+</div>
+<h3 id="second_order_predicates">
+     3.7   Second-order predicates
+    </h3>
+<p class="sektie1">
+     Suppose we need a program to determine, given two lists of persons of equal length, whether a person in the first list is the parent of the corresponding person in the second list. The following program will do the job:
+    </p>
+<p class="pi-eerst">
+     parents([],[]).
+    </p>
+<p class="pi-laatst">
+     parents([P|Ps],[C|Cs]):-<br>
+     parent(P,C),<br>
+     parents(Ps,Cs).
+</br></br></p>
+<p class="tekst">
+     We can generalise this program by including the relation which must hold between corresponding elements of the two lists as a parameter:
+    </p>
+<p class="pi-eerst">
+     rel(R,[],[]).
+    </p>
+<p class="pi-laatst">
+     rel(R,[X|Xs],[Y|Ys]):-<br>
+     R(X,Y),<br>
+     rel(R,Xs,Ys).
+</br></br></p>
+<p class="tekst">
+     A term like <tt>R(X,Y)</tt> is allowed at the position of an atom in the body of a clause, as long as it is correctly instantiated at the time it is called.
+    </p>
+<p class="sektie">
+     Some Prolog interpreters don’t allow this, in which case you must explicitly construct the literal by means of the built-in predicate ‘ <tt>=..</tt> ’ (sometimes called <i>univ</i>). It is a fully declarative predicate, which can both be used to construct a term from a list of arguments preceded by a functor, or to decompose a term into its constituents:
+    </p>
+<p class="query">
+     ?-Term =.. [parent,X,peter]<br>
+     Term = parent(X,peter)
+</br></p>
+<p class="query AutoStyle45">
+     ?-parent(maria,Y) =.. List<br>
+     List = [parent,maria,Y]
+</br></p>
+<p class="tekst">
+     ‘ <tt>=..</tt> ’ is declared as an infix operator in Prolog.
+    </p>
+<div class="extract exercise" id="3.14">
+<div class="AutoStyle06">
+<p class="exercise AutoStyle07">
+<i>Exercise 3.14.</i> Rewrite the program for <tt>rel</tt>, using <tt>=..</tt>
+</p>
+</div>
+</div>
+<div class="extract infobox" id="global_datastructure_in_prolog">
+<table align="center" cellpadding="0" cellspacing="0" hspace="0" vspace="0">
+<tbody>
+<tr>
+<td align="left" class="AutoStyle04" valign="top">
+<div class="AutoStyle31">
+<p class="inter-title AutoStyle32">
+           Global datastructures in Prolog
+          </p>
+<p class="intermezzo AutoStyle33">
+           Since Prolog variables do not have a scope outside the clause   in which they occur (section 2.2), pure Prolog does not provide any support   for global datastructures. However, Prolog provides access to its internal   database where it stores the program clauses, by means of the built-in   predicates <tt>assert</tt> and <tt>retract</tt>. The query <tt>?-assert(Clause)</tt> results in the addition of <tt>Clause</tt> (which must be instantiated to a   valid Prolog clause) to your program; the query <tt>?‑retract(Clause)</tt> removes the first clause which   unifies with <tt>Clause</tt> from your   program. These predicates are fairly low-level, and should be used with care.
+          </p>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p class="sektie">
+     The predicate <tt>rel</tt> is called a <i>second-order</i> predicate, because it takes a (first-order) predicate as an argument
+     <span class="CustomFootnote">
+<a href="#_ftn11" name="_ftnref11" title="">
+<span class="MsoFootnoteReference">
+<span class="AutoStyle13">
+<span class="AutoStyle14">
+          [11]
+         </span>
+</span>
+</span>
+</a>
+</span>
+     . We can now define the <tt>parents</tt> predicate as
+    </p>
+<p class="p-el">
+     parents(Ps,Cs):-rel(parent,Ps,Cs).
+    </p>
+<p class="tekst">
+     Suppose now you have the following facts in your program, and you want to collect all the children of a particular parent in a list:
+    </p>
+<div class="extract swish" id="3.7.1">
+<pre class="source swish temp AutoStyle03" data-variant-id="group-2" id="swish.3.7.1">
+parent(john,peter).
+parent(john,paul).
+parent(john,mary).
+parent(mick,davy).
+parent(mick,dee).
+parent(mick,dozy).
+</pre>
+</div>
+<p class="tekst">
+     Of course, it is easy to generate all the children upon backtracking; the problem is to collect them in a global list. To this end, Prolog provides the second-order predicates <tt>findall</tt>, <tt>bagof</tt>, and <tt>setof</tt>. For instance, we could use the following program and query:
+    </p>
+<div class="extract swish" id="3.7.2">
+<pre class="source swish inherit AutoStyle03" data-variant-id="group-2" id="swish.3.7.2" inherit-id="swish.3.7.1">
+children(Parent,Children):- findall(C,parent(Parent,C),Children).
+</pre>
+</div>
+<div class="extract swish" id="3.7.1_2">
+<pre class="swish query" id="query3.7.1">
+?-children(john,Children).
+</pre>
+</div>
+<p class="query AutoStyle47">
+     Children = [peter,paul,mary]
+    </p>
+<p class="tekst">
+     In general, the query
+    </p>
+<p class="p-el">
+     ?-findall(X,Goal,ListofX)
+    </p>
+<p class="tekst">
+     generates all the possible solutions of the query <tt>?‑Goal</tt>, recording the substitutions for <tt>X</tt> for each of these solutions in the list <tt>ListofX</tt> (<tt>Goal</tt> must be instantiated to a term representing a Prolog goal).
+    </p>
+<p class="sektie">
+     The <tt>bagof</tt> predicate acts similarly. However, its behaviour is different when the goal contains free variables. Consider the query
+    </p>
+<p class="query">
+     ?-bagof(C,parent(P,C),L)
+    </p>
+<p class="tekst">
+     in which the variable <tt>P</tt> is unbound. This query has two possible interpretations: ‘find a parent and a list of his children’, and ‘find the list of children <i>that have a parent</i> ’. In the first case, we get a possible value for <tt>P</tt> and a list of <tt>P</tt> ’s children, which means that there are two solutions:
+    </p>
+<div class="extract swish" id="3.7.2_2">
+<pre class="swish query" id="query3.7.2" source-id="swish.3.7.1">
+?-bagof(C,parent(P,C),L).
+</pre>
+</div>
+<p class="query">
+     C = _951<br>
+     P = john<br>
+     L = [peter,paul,mary];
+</br></br></p>
+<p class="query AutoStyle48">
+     C = _951<br>
+     P = mick<br>
+     L = [davy,dee,dozy]
+</br></br></p>
+<p class="tekst">
+     In the second case, the goal to prove is ‘there exists a <tt>P</tt> such that <tt>parent(P,C)</tt> is true’, which means that the variable <tt>P</tt> is existentially quantified. This is signalled by prefixing the goal with <tt>P^</tt>:
+</p>
+<div class="extract swish" id="3.7.3">
+<pre class="swish query" id="query3.7.3" source-id="swish.3.7.1">
+?-bagof(C,P^parent(P,C),L).
+</pre>
+</div>
+<p class="query AutoStyle45">
+     C = _957<br>
+     P = _958<br>
+     L = [peter,paul,mary,davy,dee,dozy]
+</br></br></p>
+<p class="tekst">
+     The query
+    </p>
+<div class="extract swish" id="3.7.4">
+<pre class="swish query" id="query3.7.4" source-id="swish.3.7.1">
+?-findall(C,parent(P,C),L).</pre>
+</div>
+</div>

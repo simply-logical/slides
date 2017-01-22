@@ -1,0 +1,9 @@
+<div class="extract swish" id="2.3.2_2">
+<pre class="source swish AutoStyle03" data-variant-id="group-1" id="swish.2.3.2" query-text="?-reachable(X,Y,R). ?-connected(X,Y,L).">
+reachable(oxford,charing_cross,piccadilly).
+reachable(X,Y,route(Z,R)):-
+	connected(X,Z,_L),
+	reachable(Z,Y,R).
+connected(bond_street,oxford,central).
+</pre>
+</div>

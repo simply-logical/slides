@@ -11,6 +11,7 @@ repo: "https://github.com/COMS30106/simply-logical_slides"
 author: Peter Flach
 # twitter_username: jekyllrb
 # github_username:  jekyll
+style: "simple"
 
 # Build settings
 markdown: kramdown

@@ -1,0 +1,8 @@
+<div class="extract swish" id="3.6.3">
+<pre class="source swish AutoStyle03" data-variant-id="group-2" id="swish.3.6.3" query-text="?-reverse([a,b,c],R). ?-reverse([a,b,c],[],R). ?-reverse([b,c],[a],R). ?-reverse([c],[b,a],R).">
+reverse(X,Y):- reverse(X,[],Y).
+
+reverse([],Y,Y).
+reverse([H|T],Y0,Y):- reverse(T,[H|Y0],Y).
+</pre>
+</div>

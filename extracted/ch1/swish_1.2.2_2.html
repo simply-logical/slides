@@ -1,0 +1,7 @@
+<div class="extract swish" id="1.2.2_2">
+<pre class="source swish inherit AutoStyle03" data-variant-id="group-1" id="swish.1.2.2" inherit-id="swish.1.0.1" query-text="?-reachable(oxford_circus,charing_cross,R).">
+reachable(X,Y,noroute):-connected(X,Y,L).
+reachable(X,Y,route(Z,R)):-connected(X,Z,L),
+                           reachable(Z,Y,R).
+</pre>
+</div>

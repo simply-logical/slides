@@ -1,0 +1,14 @@
+<div class="extract swish" id="3.9.2">
+<pre class="source swish AutoStyle03" data-variant-id="group-2" id="swish.3.9.2" query-text="?-mySort([3,6,2,8,1],Sorted). ?-mySort([6,5,4,3,2,1],Sorted)." source-text-end="
+insert(X,[],[X]).
+insert(X,[Head|Tail],[Head|Inserted]):-
+	X &gt; Head,
+	insert(X,Tail,Inserted).
+insert(X,[Head|Tail],[X,Head|Tail]):-
+	X =&lt; Head.">
+mySort([],[]).
+mySort([Head|Tail],WholeSorted):-
+	mySort(Tail,Sorted),
+	insert(Head,Sorted,WholeSorted).
+</pre>
+</div>

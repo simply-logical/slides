@@ -1,0 +1,96 @@
+<div class="extract infobox" id="the_order_of_logics">
+<table align="center" cellpadding="0" cellspacing="0" hspace="0" vspace="0">
+<tbody>
+<tr>
+<td align="left" class="AutoStyle04" valign="top">
+<div class="AutoStyle31">
+<p class="inter-title AutoStyle32">
+        The order of logics
+       </p>
+<p class="intermezzo AutoStyle38">
+        A logic with propositions   (statements that can be either true or false) as basic building blocks is   called a propositional logic; a logic built on predicates is called a   Predicate Logic. Since propositions can be viewed as nullary predicates (i.e.   predicates without arguments), any propositional logic is also a Predicate   Logic.
+       </p>
+<p class="intermezzo AutoStyle38">
+        A logic may or may not have   variables for its basic building blocks. If it does not include such   variables, both the logic and its building blocks are called <i>first-order</i>; this is the normal case.   Thus, in first-order Predicate Logic, there are no<br>
+        predicate variables, but only first-order predicates.
+</br></p>
+<p class="intermezzo AutoStyle38">
+        Otherwise, an <i>n</i>
+<span class="AutoStyle39">
+         th
+        </span>
+         order logic has variables (and thus   quantifiers) for its (<i>n</i> -1)
+        <span class="AutoStyle39">
+         th
+        </span>
+         order building blocks. For instance, the   statement
+       </p>
+<p class="intermezzo AutoStyle38">
+<span class="AutoStyle09">
+         ∀
+        </span>
+<tt>X</tt>
+<span class="AutoStyle09">
+         ∀
+        </span>
+<tt>Y</tt>: <tt>equal(X,Y)</tt>
+<span class="AutoStyle09">
+         ↔
+        </span>
+<tt>(</tt>
+<span class="AutoStyle09">
+         ∀
+        </span>
+<tt>P</tt>: <tt>P(X)</tt>
+<span class="AutoStyle09">
+         ↔
+        </span>
+<tt>P(Y))</tt>
+</p>
+<p class="intermezzo AutoStyle38">
+        defining two individuals to be   equal if they have the same properties,<br>
+        is a statement from second-order Predicate Logic, because <tt>P</tt> is a<br>
+        variable ranging over first-order predicates.
+</br></br></p>
+<p class="intermezzo AutoStyle38">
+        Another example of a statement   from second-order Predicate Logic is
+       </p>
+<p class="intermezzo AutoStyle38">
+<span class="AutoStyle09">
+         ∀
+        </span>
+<tt>P</tt>: <tt>transitive(P)</tt>
+<span class="AutoStyle09">
+         ↔
+        </span>
+<tt>(</tt>
+<span class="AutoStyle09">
+         ∀
+        </span>
+<tt>X</tt>
+<span class="AutoStyle09">
+         ∀
+        </span>
+<tt>Y</tt>
+<span class="AutoStyle09">
+         ∀
+        </span>
+<tt>Z</tt>: <tt>P(X,Y)</tt>
+<span class="AutoStyle09">
+         ∧
+        </span>
+<tt>P(Y,Z)</tt>
+<span class="AutoStyle09">
+         →
+        </span>
+<tt>P(X,Z))</tt>
+</p>
+<p class="intermezzo AutoStyle33">
+        This statement defines the   transitivity of binary relations. Since <tt>transitive</tt> has a second-order   variable as argument, it is called a <i>second-order   predicate</i>.
+       </p>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>

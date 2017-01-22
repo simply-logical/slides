@@ -1,0 +1,9 @@
+<div class="extract swish" id="3.6.2">
+<pre class="source swish AutoStyle03" data-variant-id="group-2" id="swish.3.6.2" query-text="?-naive_reverse([a,b,c],R).">
+naive_reverse([],[]).
+naive_reverse([H|T],R):-naive_reverse(T,R1),append(R1,[H],R).
+
+append([],Y,Y).
+append([H|T],Y,[H|Z]):-append(T,Y,Z).
+</pre>
+</div>

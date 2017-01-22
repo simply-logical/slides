@@ -6,7 +6,7 @@
 
     <!--Reveal.js-->
     <link href="{{ site.baseurl }}/web/css/reveal.css" rel="stylesheet">
-    <link href="{{ site.baseurl }}/web/css/theme/night.css" rel="stylesheet">
+    <link href="{{ site.baseurl }}/web/css/theme/{{ site.style }}.css" rel="stylesheet">
 
     {% if site.title %}
       <meta name=Title content="{{ site.title }}">
@@ -76,7 +76,9 @@
           // Zoom in and out with Alt+click
         { src: '{{ site.baseurl }}/web/plugin/zoom-js/zoom.js', async: true },
         // Speaker notes
-        { src: '{{ site.baseurl }}/web/plugin/notes/notes.js', async: true }
+        { src: '{{ site.baseurl }}/web/plugin/notes/notes.js', async: true },
+        // External HTML files
+        { src: '{{ site.baseurl }}/web/plugin/external/external.js', condition: function() { return !!document.querySelector( '[data-external]' ); } }
 
         ]
       });

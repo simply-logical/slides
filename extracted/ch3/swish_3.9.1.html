@@ -1,0 +1,14 @@
+<div class="extract swish" id="3.9.1">
+<pre class="source swish AutoStyle03" data-variant-id="group-2" id="swish.3.9.1" query-text="?-partition([1,9,6,3,5],5,Littles,Bigs). ?-partition([11,7,5],5,Littles,Bigs).">
+% partition(L,N,Littles,Bigs) &lt;- Littles contains numbers 
+%                                in L smaller than N, 
+%                                Bigs contains the rest
+partition([],_N,[],[]).
+partition([Head|Tail],N,[Head|Littles],Bigs):-
+	Head &lt; N,
+	partition(Tail,N,Littles,Bigs).
+partition([Head|Tail],N,Littles,[Head|Bigs]):-
+	Head &gt;= N,
+	partition(Tail,N,Littles,Bigs).
+</pre>
+</div>

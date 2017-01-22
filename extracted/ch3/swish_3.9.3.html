@@ -1,0 +1,10 @@
+<div class="extract swish" id="3.9.3">
+<pre class="source swish AutoStyle03" data-variant-id="group-2" id="swish.3.9.3" query-text="?-insert(4,[2,3,5,7],Inserted). ?-insert(1,[2,3,5,7],Inserted). ?-insert(8,[2,3,5,7],Inserted).">
+insert(X,[],[X]).
+insert(X,[Head|Tail],[Head|Inserted]):-
+	X &gt; Head,
+	insert(X,Tail,Inserted).
+insert(X,[Head|Tail],[X,Head|Tail]):-
+	X =&lt; Head.
+</pre>
+</div>

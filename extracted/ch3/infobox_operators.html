@@ -1,0 +1,20 @@
+<div class="extract infobox" id="operators">
+<table align="center" cellpadding="0" cellspacing="0" hspace="0" vspace="0">
+<tbody>
+<tr>
+<td align="left" class="AutoStyle04" valign="top">
+<div class="AutoStyle31">
+<p class="inter-title AutoStyle32">
+           Operators
+          </p>
+<p class="intermezzo AutoStyle33">
+           In Prolog, functors and predicates are collectively called <i>operators</i>. An operator is declared by   the query <tt>?-op(Priority,Type,Name)</tt>,   where <tt>Priority</tt> is a number between 0   and 1200 (lower priority binds stronger), and <tt>Type</tt> is <tt>fx</tt> or <tt>fy</tt> for prefix, <tt>xfx</tt>, <tt>xfy</tt> or <tt>yfx</tt> for infix, and <tt>xf</tt> or <tt>yf</tt> for postfix. The <tt>x</tt> and <tt>y</tt> determine associativity: for instance, <tt>xfx</tt> means not associative (you cannot write <tt>X   op Y op Z</tt>, but must either write <tt>(X   op Y) op Z</tt> or <tt>X op (Y op Z)</tt>), <tt>xfy</tt> means right-associative (<tt>X op Y op Z</tt> means <tt>op(X,op(Y,Z))</tt>), and <tt>yfx</tt> means left-associative (<tt>X op Y op Z</tt> means <tt>op(op(X,Y),Z)</tt>). Every special   symbol of Prolog, such as ‘ <tt>:-</tt> ’ and ‘ <tt>,</tt> ’ (conjunction in the body of a clause), is a predefined   operator. The interpretation of operators can be visualised by means of the   predicate <tt>display</tt>, which writes a   term without operators. For instance,<br>
+           the query <tt>?-display((p:-q,r,s))</tt> writes <tt>:-(p,','(q,','(r,s)))</tt>.<br>
+            The extra parentheses are needed because <tt>:-</tt> binds very weakly.
+</br></br></p>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>

@@ -1,0 +1,16 @@
+<div class="extract exercise" id="2.10">
+<div class="AutoStyle06">
+<p class="exercise AutoStyle07">
+<i>Exercise 2.10</i>. Determine the Herbrand universe of the following program:
+  </p>
+<div class="extract swish" id="2.3.2">
+<pre class="source swish AutoStyle03" data-variant-id="group-1" id="swish.2.3.2" query-text="?-listlength([0,0,0],N). ?-listlength(L,s(s(0))). ?-listlength(L,N).">
+listlength([],0).
+listlength([_X|Y],s(L)):-listlength(Y,L).
+</pre>
+</div>
+<p class="exercise AutoStyle07">
+   (Hint: recall that <tt>[]</tt> is a constant, and that <tt>[X|Y]</tt> is an alternative notation for the complex term <tt>.(X,Y)</tt> with binary functor ‘ <tt>.</tt> ’!)
+  </p>
+</div>
+</div>

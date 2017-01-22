@@ -1,0 +1,39 @@
+<div class="extract swish" id="3.8.2_2">
+<pre class="source swish AutoStyle03" data-variant-id="group-2" id="swish.3.8.2" query-text="?-prove_p(student_of(S,T)). ?-prove_p(is_bird(X))." source-text-end="
+conj_append(true,Ys,Ys).
+conj_append(X,Ys,(X,Ys)):-X\=true,X\=(_One,_TheOther).
+conj_append((X,Xs),Ys,(X,Zs)):-conj_append(Xs,Ys,Zs).
+
+student_of(S,T):-teaches(T,C),follows(S,C).
+teaches(peter,cs).
+teaches(peter,ai).
+follows(maria,cs).
+follows(paul,ai).
+
+is_bird(X):-has_feathers(X),lays_eggs(X).
+is_fish(X):-has_gills(X),lays_eggs(X).
+has_feathers(tweety).
+lays_eggs(tweety).
+">
+% display a proof tree
+prove_p(A):-prove_p(A,P),write_proof(P).
+
+% prove_p(A,P) &lt;- P is proof tree of A
+prove_p(true,[]):-!.
+prove_p((A,B),[p((A,B),(A:-C))|Proof]):-!,
+	clause(A,C),
+	conj_append(C,B,D),
+	prove_p(D,Proof).
+prove_p(A,[p(A,(A:-B))|Proof]):-
+	clause(A,B),
+	prove_p(B,Proof).
+
+write_proof([]):-
+	write('...............[]'),nl.
+write_proof([p(A,B)|Proof]):-
+	write((:-A)),nl,
+	write('.....|'),write('..........'),write(B),nl,
+	write('.....|'),write('..................../'),nl,
+	write_proof(Proof).
+</pre>
+</div>

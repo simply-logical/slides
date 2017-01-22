@@ -1,0 +1,27 @@
+<div class="extract infobox" id="negation_as_failure_vs_logical_negation">
+<table align="center" cellpadding="0" cellspacing="0" hspace="0" vspace="0">
+<tbody>
+<tr>
+<td align="left" class="AutoStyle04" valign="top">
+<div class="AutoStyle31">
+<p class="inter-title AutoStyle32">
+           Negation as failure vs. logical negation
+          </p>
+<p class="intermezzo AutoStyle32">
+           Negation as failure is not the same as logical negation: if we   cannot prove <tt>q</tt>, we know that <tt>q</tt> is not a logical consequence of the   program, but this does not mean that its negation <tt>:-q</tt> is a logical consequence of the program. Adopting   negation as failure is similar to saying ‘I cannot prove that God exists,   therefore I conclude God does not exist’. It is a kind of reasoning that is   applicable in some contexts, but inadequate in others. Logical negation can   only be expressed by<br>
+           indefinite clauses, as in the following program:
+</br></p>
+<p align="left" class="intermezzo AutoStyle44">
+<tt>                           p:-q,r.<br>
+                                       p;q:-s.<br>
+                                       s.</br></br></tt>
+</p>
+<p class="intermezzo AutoStyle33">
+           Semantically speaking, if we don’t have enough information to   conclude that a formula <i>F</i> is true   or false, the truth value of its logical negation will also be undecided, but <tt>not</tt> (<i>F</i>) will be true. This property of negation as failure can be very   useful when dealing with exceptions to rules: if we don’t know that something   is an exception to a rule, we assume that it’s not, so we only have to list   the exceptions and not the normal cases. This approach will be extensively   discussed in Chapter 8 on reasoning with incomplete information.
+          </p>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>

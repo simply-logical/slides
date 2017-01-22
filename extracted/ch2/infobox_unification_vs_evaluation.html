@@ -1,0 +1,21 @@
+<div class="extract infobox" id="unification_vs_evaluation">
+<table align="center" cellpadding="0" cellspacing="0" hspace="0" vspace="0">
+<tbody>
+<tr>
+<td align="left" class="AutoStyle04" valign="top">
+<div class="AutoStyle31">
+<p class="inter-title AutoStyle32">
+        Unification vs. evaluation
+       </p>
+<p class="intermezzo AutoStyle32">
+        Functors should not be confused with mathematical functions.   Although both can be viewed as mappings from objects to objects, <i>an expression containing a functor is not   evaluated</i> to determine the value of the mapping, as in mathematics.   Rather, the outcome of the mapping is a name, which is determined by <i>unification</i>. For instance, given the   complex term <tt>person_loved_by(X)</tt>, if   we want to know the name of the object to which Peter is mapped, we unify <tt>X</tt> with <tt>peter</tt> to get <tt>person_loved_by(peter)</tt>; this   ground term is not evaluated any further.
+       </p>
+<p class="intermezzo AutoStyle33">
+        This approach has the disadvantage that we introduce different   names for individuals that might turn out to be identical, e.g. <tt>person_loved_by(peter)</tt> might be the same   as <tt>peter</tt>. Consequently, reasoning   about equality (of different names for the same object) is a problem in   clausal logic. Several possible solutions exist, but they fall outside the   scope of this book.
+       </p>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
