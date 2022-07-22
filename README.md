@@ -11,4 +11,4 @@
 | **Simply Logical Chapter 8** | [PPT](SLchapter8.ppt?raw=true) | [PDF](SLchapter8.pdf?raw=true) |
 | **Simply Logical Chapter 9** | [PPT](SLchapter9.ppt?raw=true) | [PDF](SLchapter9.pdf?raw=true) |
 
-I usually leave Chapter 4 for selfstudy, and so do not have slides for it.
+Chapter 4 is usually left for self-study, therefore it lacks dedicated slides.
